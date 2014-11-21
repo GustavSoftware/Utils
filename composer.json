@@ -1,0 +1,17 @@
+{
+	"name": "gustav/utils",
+	"type": "library",
+	"description": "Some additional libraries needed in ORM or CMS.",
+	"keywords": [],
+	"homepage": "http://gustav.fieselschweif.de",
+	"license": "GPLv3",
+	"authors": [
+	  {"name": "Chris Köcher", "email": "ckone@fieselschweif.de"}
+	],
+	"require": {
+	  "php": ">=5.4"
+	},
+	"autoload": {
+	  "psr-0": { "Gustav\\Utils\\": "libs/" }
+	}
+}
