@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Gustav Utils - Some additional libraries needed in ORM or CMS. 
+ * Gustav Utils - Some additional libraries needed in ORM or CMS.
  * Copyright (C) 2014  Chris Köcher
  *
  * This program is free software: you can redistribute it and/or modify
