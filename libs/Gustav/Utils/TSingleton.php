@@ -29,11 +29,11 @@ namespace Gustav\Utils;
  * @package Gustav.Utils
  * @since   1.0
  */
-trait Singleton {
+trait TSingleton {
     /**
      * The only instance of this class.
      *
-     * @var       \Gustav\Utils\Singleton
+     * @var       \Gustav\Utils\TSingleton
      * @staticvar
      */
     private static $_instance;
@@ -58,7 +58,7 @@ trait Singleton {
     /**
      * Returns the only instance of this class.
      *
-     * @return \Gustav\Utils\Singleton The only instance of this class
+     * @return \Gustav\Utils\TSingleton The only instance of this class
      * @static
      */
     public static function getInstance() {
