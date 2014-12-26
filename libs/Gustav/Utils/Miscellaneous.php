@@ -31,18 +31,39 @@ namespace Gustav\Utils;
  */
 class Miscellaneous {
     /**
-     * Checks whether the class in first argument implements the interface in
-     * second argument.
+     * Checks whether the class or object in first argument implements the
+     * interface with name in second argument.
      *
-     * @param  string  $className The class name
+     * @param  mixed   $class     The class name or object
      * @param  string  $interface The interface name
-     * @return boolean            true, if the class implements the interface,
-     *                            otherwise, false
+     * @return boolean            true, if the class/object implements the
+     *                            interface, otherwise false
      * @static
      */
-    public static function implementsInterface($className, $interface) {
-        $reflection = new \ReflectionClass($className);
+    public static function implementsInterface($class, $interface) {
+        $reflection = new \ReflectionClass($class);
         return $reflection->implementsInterface($interface);
+    }
+    
+    /**
+     * Checks whether the class or object in first argument uses the trait with
+     * name in second argument.
+     * 
+     * @param  mixed   $class The class name or object
+     * @param  string  $trait The trait name
+     * @return boolean        true, if the class/object uses the trait,
+     *                        otherwise false
+     * @static
+     */
+    public static function usesTrait($class, $trait) {
+        if(\is_object($class)) { //the simple case...
+            return ($class instanceof $trait);
+        }
+        $reflection = new \ReflectionClass($class);
+        if(\mb_substr($trait, 0, 1) === "\\") { //remove the leading backslash
+            $trait = \mb_substr($trait, 1);
+        }
+        return \in_array($trait, $reflection->getTraitNames());
     }
     
     /**
