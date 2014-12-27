@@ -56,9 +56,6 @@ class Miscellaneous {
      * @static
      */
     public static function usesTrait($class, $trait) {
-        if(\is_object($class)) { //the simple case...
-            return ($class instanceof $trait);
-        }
         $reflection = new \ReflectionClass($class);
         if(\mb_substr($trait, 0, 1) === "\\") { //remove the leading backslash
             $trait = \mb_substr($trait, 1);
