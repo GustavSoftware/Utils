@@ -64,6 +64,21 @@ class Miscellaneous {
     }
     
     /**
+     * Checks if a given class nams begins with a "\" and adds this if not.
+     *
+     * @param  string $className The class name to check
+     * @return string            The class name with leading "\"
+     * @static
+     */
+    public static function prepareClassName($className) {
+        $className = (string) $className;
+        if(\mb_strpos($className, "\\") !== 0) {
+            return "\\" . $className;
+        }
+        return $className;
+    }
+    
+    /**
      * Converts a integer value into an unicode symbol with this code number.
      *
      * @param  int    $code The code number
