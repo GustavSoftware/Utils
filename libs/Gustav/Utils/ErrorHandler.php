@@ -112,8 +112,10 @@ class ErrorHandler {
      * @static
      */
     private static function logError() {
-        \error_log(self::$_error['message'] . "\n", 3, \Gustav\ROOT_DIR //TODO: update directory
-                . self::LOG_DIR . "error.log"); //TODO: add friendly message...
+        echo self::$_error['message'] . "," . self::$_error['file'] . ","
+                . self::$_error['line'] . \PHP_EOL;
+/*        \error_log(self::$_error['message'] . "\n", 3, \Gustav\ROOT_DIR //TODO: update directory
+                . self::LOG_DIR . "error.log"); //TODO: add friendly message...*/
     }
     
     /**
@@ -122,9 +124,11 @@ class ErrorHandler {
      * @static
      */
     private static function logWarning() {
-        \error_log(self::$_error['message'] . "," . self::$_error['file'] . ","
+        echo self::$_error['message'] . "," . self::$_error['file'] . ","
+                . self::$_error['line'] . \PHP_EOL;
+/*        \error_log(self::$_error['message'] . "," . self::$_error['file'] . ","
                 . self::$_error['line'] . "\n", 3, \Gustav\ROOT_DIR //TODO: update directory
-                . self::LOG_DIR . "warning.log"); //TODO: add friendly message...
+                . self::LOG_DIR . "warning.log"); //TODO: add friendly message...*/
     }
     
     /**
