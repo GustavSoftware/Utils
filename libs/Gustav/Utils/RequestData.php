@@ -1,8 +1,8 @@
 <?php
 
 /*
- * Gustav ORM - A simple PHP framework for object-relational mappings.
- * Copyright (C) 2014  Chris Köcher
+ * Gustav Utils - Some additional libraries needed in ORM or CMS.
+ * Copyright (C) 2014-2015  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

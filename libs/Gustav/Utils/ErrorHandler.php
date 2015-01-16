@@ -2,7 +2,7 @@
 
 /*
  * Gustav Utils - Some additional libraries needed in ORM or CMS.
- * Copyright (C) 2014  Chris Köcher
+ * Copyright (C) 2014-2015  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
