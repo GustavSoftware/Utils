@@ -115,7 +115,7 @@ class Randomizer {
     private static function _seedRandomizer() {
         self::$_seeded = true;
         
-        $seed = \hexdec(\bin2hex(\openssl_random_pseudo_bytes(8, $s)));
+        $seed = \hexdec(\bin2hex(\openssl_random_pseudo_bytes(8, true)));
         \mt_srand($seed);
     }
 }

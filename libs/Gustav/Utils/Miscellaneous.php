@@ -183,7 +183,7 @@ class Miscellaneous {
                 break;
             }
             $string = \substr($string, $offset);
-        } while(++$i);
+        } while(true);
         
         // Start from the end and work our way in
         $string = \strrev($string);
@@ -195,11 +195,32 @@ class Miscellaneous {
                 break;
             }
             $string = \substr($string, $offset);
-        } while(++$i);
+        } while(true);
         
         $string = \strrev($string);
         $string = \trim($string);
         
         return $string;
+    }
+    
+    /**
+     * This method clones an array recursively. So all objects contained in this
+     * array will be cloned correctly.
+     * 
+     * @param  array $array The array to clone
+     * @return array        The cloned array
+     */
+    public static function cloneArray(array $array) {
+        $newArray = array();
+        foreach($array as $key => $value) {
+            if(\is_object($value)) {
+                $newArray[$key] = clone $value;
+            } elseif(\is_array($value)) {
+                $newArray[$key] = self::cloneArray($value);
+            } else {
+                $newArray[$key] = $value;
+            }
+        }
+        return $newArray;
     }
 }
