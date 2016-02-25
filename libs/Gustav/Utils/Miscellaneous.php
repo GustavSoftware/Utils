@@ -64,7 +64,7 @@ class Miscellaneous {
     }
     
     /**
-     * Checks if a given class nams begins with a "\" and adds this if not.
+     * Checks if a given class name begins with a "\" and adds this if not.
      *
      * @param  string $className The class name to check
      * @return string            The class name with leading "\"
@@ -102,52 +102,41 @@ class Miscellaneous {
      * @static
      */
     public static function trimBlanks($string) {
-        $hex_chrs = array(
-            0x20 => 1,
-            0x09 => 1,
-            0x0A => 1,
-            0x0D => 1,
-            0x0B => 1,
-            0xAD => 1,
-            0xA0 => 1,
-            0xAD => 1,
-            0xBF => 1,
-            0x81 => 1,
-            0x8D => 1,
-            0x90 => 1,
-            0x9D => 1,
-            0xCC => array(0xB7 => 1, 0xB8 => 1), // \x{0337} or \x{0338}
-            0xE1 => array(0x85 => array(0x9F => 1, 0xA0 => 1)), // \x{115F} or \x{1160}
-            0xE2 => array(0x80 => array(0x80 => 1, 0x81 => 1, 0x82 => 1, 0x83 => 1, 0x84 => 1, 0x85 => 1, 0x86 => 1, 0x87 => 1, 0x88 => 1, 0x89 => 1, 0x8A => 1, 0x8B => 1, // \x{2000} to \x{200B}
-                                        0xA8 => 1, 0xA9 => 1, 0xAA => 1, 0xAB => 1, 0xAC => 1, 0xAD => 1, 0xAE => 1, 0xAF => 1), // \x{2028} to \x{202F}
-                        0x81 => array(0x9F => 1)), // \x{205F}
+        $hex_chars = array(
+            0x09 => 1, // \x{0009}
+            0x0A => 1, // \x{000A}
+            0x0B => 1, // \x{000B}
+            0x0D => 1, // \x{000D}
+            0x20 => 1, // \x{0020}
+            0xC2 => array(0x81 => 1, 0x8D => 1, 0x90 => 1, 0x9D => 1, 0xA0 => 1, 0xAD => 1), // \x{0081}, \x{008D}, \x{0090}, \x{009D}, \x{00A0}, \x{00AD}
+            0xCC => array(0xB7 => 1, 0xB8 => 1), // \x{0337}, \x{0338}
+            0xE1 => array(0x85 => array(0x9F => 1, 0xA0 => 1), 0x9A => array(0x80 => 1), 0xA0 => array(0x8E => 1)), // \x{115F}, \x{1160}, \x{1680}, \x{180E}
+            0xE2 => array(0x80 => array(0x80 => 1, 0x81 => 1, 0x82 => 1, 0x83 => 1, 0x84 => 1, 0x85 => 1, 0x86 => 1, 0x87 => 1, 0x88 => 1, 0x89 => 1, 0x8A => 1, 0x8B => 1, 0x8C => 1, 0x8D => 1, 0x8E => 1, 0x8F => 1, // \x{2000} - \x{200F}
+                                        0xA8 => 1, 0xA9 => 1, 0xAA => 1, 0xAB => 1, 0xAC => 1, 0xAD => 1, 0xAE => 1, 0xAF => 1), // \x{2028} - \x{202F}
+                          0x81 => array(0x9F => 1)), // \x{205F}
             0xE3 => array(0x80 => array(0x80 => 1), // \x{3000}
-                        0x85 => array(0xA4 => 1)), // \x{3164}
+                          0x85 => array(0xA4 => 1)), // \x{3164}
             0xEF => array(0xBB => array(0xBF => 1), // \x{FEFF}
-                        0xBE => array(0xA0 => 1), // \x{FFA0}
-                        0xBF => array(0xB9 => 1, 0xBA => 1, 0xBB => 1)), // \x{FFF9} to \x{FFFB}
+                          0xBE => array(0xA0 => 1), // \x{FFA0}
+                          0xBF => array(0xB9 => 1, 0xBA => 1, 0xBB => 1)), // \x{FFF9} - \x{FFFB}
         );
-        
-        $hex_chrs_rev = array(
-            0x20 => 1,
-            0x09 => 1,
-            0x0A => 1,
-            0x0D => 1,
-            0x0B => 1,
-            0xA0 => array(0xC2 => 1),
-            0xAD => array(0xC2 => 1),
-            0xBF => array(0xC2 => 1),
-            0x81 => array(0xC2 => 1),
-            0x8D => array(0xC2 => 1),
-            0x90 => array(0xC2 => 1),
-            0x9D => array(0xC2 => 1),
+        $hex_chars_rev = array(
+            0x09 => 1, // \x{0009}
+            0x0A => 1, // \x{000A}
+            0x0B => 1, // \x{000B}
+            0x0D => 1, // \x{000D}
+            0x20 => 1, // \x{0020}
+            0x81 => array(0xC2 => 1, 0x80 => array(0xE2 => 1)), // \x{0081}, \x{2001}
+            0x8D => array(0xC2 => 1, 0x80 => array(0xE2 => 1)), // \x{008D}, \x{200D}
+            0x90 => array(0xC2 => 1), // \x{0090}
+            0x9D => array(0xC2 => 1), // \x{009D}
+            0xA0 => array(0xC2 => 1, 0x85 => array(0xE1 => 1), 0x81 => array(0xE2 => 1), 0xBE => array(0xEF => 1)), // \x{00A0}, \x{1160}, \x{2060}, \x{FFA0}
+            0xAD => array(0xC2 => 1, 0x80 => array(0xE2 => 1)), // \x{00AD}, \x{202D}
             0xB8 => array(0xCC => 1), // \x{0338}
             0xB7 => array(0xCC => 1), // \x{0337}
-            0xA0 => array(0x85 => array(0xE1 => 1)), // \x{1160}
-            0x9F => array(0x85 => array(0xE1 => 1), // \x{115F}
-                        0x81 => array(0xE2 => 1)), // \x{205F}
-            0x80 => array(0x80 => array(0xE3 => 1, 0xE2 => 1)), // \x{3000}, \x{2000}
-            0x81 => array(0x80 => array(0xE2 => 1)), // \x{2001}
+            0x9F => array(0x85 => array(0xE1 => 1), 0x81 => array(0xE2 => 1)), // \x{115F}, \x{205F}
+            0x80 => array(0x9A => array(0xE1 => 1), 0x80 => array(0xE2 => 1, 0xE3 => 1)), // \x{1680}, \x{2000}, \x{3000}
+            0x8E => array(0xA0 => array(0xE1 => 1), 0x80 => array(0xE2 => 1)), // \x{180E}, \x{200E}
             0x82 => array(0x80 => array(0xE2 => 1)), // \x{2002}
             0x83 => array(0x80 => array(0xE2 => 1)), // \x{2003}
             0x84 => array(0x80 => array(0xE2 => 1)), // \x{2004}
@@ -158,17 +147,17 @@ class Miscellaneous {
             0x89 => array(0x80 => array(0xE2 => 1)), // \x{2009}
             0x8A => array(0x80 => array(0xE2 => 1)), // \x{200A}
             0x8B => array(0x80 => array(0xE2 => 1)), // \x{200B}
+            0x8C => array(0x80 => array(0xE2 => 1)), // \x{200C}
+            0x8F => array(0x80 => array(0xE2 => 1)), // \x{200F}
             0xA8 => array(0x80 => array(0xE2 => 1)), // \x{2028}
             0xA9 => array(0x80 => array(0xE2 => 1)), // \x{2029}
             0xAA => array(0x80 => array(0xE2 => 1)), // \x{202A}
             0xAB => array(0x80 => array(0xE2 => 1)), // \x{202B}
             0xAC => array(0x80 => array(0xE2 => 1)), // \x{202C}
-            0xAD => array(0x80 => array(0xE2 => 1)), // \x{202D}
             0xAE => array(0x80 => array(0xE2 => 1)), // \x{202E}
             0xAF => array(0x80 => array(0xE2 => 1)), // \x{202F}
             0xA4 => array(0x85 => array(0xE3 => 1)), // \x{3164}
             0xBF => array(0xBB => array(0xEF => 1)), // \x{FEFF}
-            0xA0 => array(0xBE => array(0xEF => 1)), // \x{FFA0}
             0xB9 => array(0xBF => array(0xEF => 1)), // \x{FFF9}
             0xBA => array(0xBF => array(0xEF => 1)), // \x{FFFA}
             0xBB => array(0xBF => array(0xEF => 1)), // \x{FFFB}
@@ -177,7 +166,7 @@ class Miscellaneous {
         // Start from the beginning and work our way in
         do {
             // Check to see if we have matched a first character in our utf-16 array
-            $offset = \match_sequence($string, $hex_chrs);
+            $offset = self::_match_sequence($string, $hex_chars);
             if(!$offset) {
                 // If not, then we must have a "good" character and we don't need to do anymore processing
                 break;
@@ -189,7 +178,7 @@ class Miscellaneous {
         $string = \strrev($string);
         do {
             // Check to see if we have matched a first character in our utf-16 array
-            $offset = \match_sequence($string, $hex_chrs_rev);
+            $offset = self::_match_sequence($string, $hex_chars_rev);
             if(!$offset) {
                 // If not, then we must have a "good" character and we don't need to do anymore processing
                 break;
@@ -222,5 +211,34 @@ class Miscellaneous {
             }
         }
         return $newArray;
+    }
+
+    /**
+     * Matches a sequence.
+     * This method was copied from MyBBs match_sequence().
+     *
+     * @param  string  $string The string to match from
+     * @param  array   $array  The array to match from
+     * @param  integer $i      Number in the string
+     * @param  integer $n      Number of matches
+     * @return integer         The number matched
+     * @see    http://crossreference.mybboard.de/nav.html?inc/functions.php.html
+     * @static
+     */
+    private static function _match_sequence($string, $array, $i=0, $n=0) {
+        if($string === "") {
+            return 0;
+        }
+        $ord = \ord($string[$i]);
+        if(\array_key_exists($ord, $array)) {
+            $level = $array[$ord];
+            ++$n;
+            if(\is_array($level)) {
+                ++$i;
+                return self::_match_sequence($string, $level, $i, $n);
+            }
+            return $n;
+        }
+        return 0;
     }
 }

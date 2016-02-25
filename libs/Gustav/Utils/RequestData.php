@@ -64,8 +64,8 @@ class RequestData {
     private static $_https;
     
     /**
-     * The called (sub-)domain. This is reasonsable especially in systems with
-     * more than one domain resp. subdomain.
+     * The called (sub-)domain. This is reasonable especially in systems with
+     * more than one domain resp. sub-domain.
      * 
      * @var       string
      * @staticvar
@@ -176,6 +176,7 @@ class RequestData {
         if(isset(self::$_data[$key])) {
             return self::$_data[$key];
         }
+        return null;
     }
     
     /**
@@ -203,7 +204,7 @@ class RequestData {
     /**
      * Returns the called (sub-)domain.
      * 
-     * @return string The domain or subdomain
+     * @return string The domain or sub-domain
      * @static
      */
     public static function getDomain() {

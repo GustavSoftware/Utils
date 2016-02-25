@@ -87,7 +87,7 @@ class ErrorHandler {
     
     /**
      * This method will be called if a warning on runtime occurred. The warning
-     * will only be logged in log file. The script doesn't halt afterwards and
+     * will only be logged in log file. The script does not halt afterwards and
      * no friendly message will appear in output.
      *
      * @param  string $message The error message

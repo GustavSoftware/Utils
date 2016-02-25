@@ -45,7 +45,7 @@ class Randomizer {
      * Creates a random alphanumeric string with the given length.
      *
      * @param  int     $length    The length of the string (default is 20)
-     * @param  boolean $forceSeed true, if randomzer should be seeded again
+     * @param  boolean $forceSeed true, if randomizer should be seeded again
      * @return string             A random string with the given length
      * @static
      */
@@ -71,7 +71,7 @@ class Randomizer {
      *
      * @param  int     $min       The ranges lower bound
      * @param  int     $max       The ranges upper bound
-     * @param  boolean $forceSeed true, if randomzer should be seeded again
+     * @param  boolean $forceSeed true, if randomizer should be seeded again
      * @return int                A random integer
      * @static
      */
@@ -94,7 +94,7 @@ class Randomizer {
      * 
      * @param  int     $min       The ranges lower bound
      * @param  int     $max       The ranges upper bound
-     * @param  boolean $forceSeed true, if randomzer should be seeded again
+     * @param  boolean $forceSeed true, if randomizer should be seeded again
      * @return float              A random float
      * @static
      */
@@ -115,7 +115,7 @@ class Randomizer {
     private static function _seedRandomizer() {
         self::$_seeded = true;
         
-        $seed = \hexdec(\bin2hex(\openssl_random_pseudo_bytes(8, true)));
+        $seed = \hexdec(\bin2hex(\openssl_random_pseudo_bytes(8)));
         \mt_srand($seed);
     }
 }
