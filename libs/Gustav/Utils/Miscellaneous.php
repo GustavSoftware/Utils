@@ -41,8 +41,10 @@ class Miscellaneous {
      * @static
      */
     public static function implementsInterface($class, $interface) {
-        $reflection = new \ReflectionClass($class);
-        return $reflection->implementsInterface($interface);
+        if(\mb_substr($interface, 0, 1) === "\\") { //remove the leading backslash
+            $interface = \mb_substr($interface, 1);
+        }
+        return \in_array($interface, \class_implements($class));
     }
     
     /**
@@ -56,11 +58,10 @@ class Miscellaneous {
      * @static
      */
     public static function usesTrait($class, $trait) {
-        $reflection = new \ReflectionClass($class);
         if(\mb_substr($trait, 0, 1) === "\\") { //remove the leading backslash
             $trait = \mb_substr($trait, 1);
         }
-        return \in_array($trait, $reflection->getTraitNames());
+        return \in_array($trait, \class_uses($class));
     }
     
     /**
