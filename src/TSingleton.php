@@ -33,8 +33,7 @@ trait TSingleton {
     /**
      * The only instance of this class.
      *
-     * @var       \Gustav\Utils\TSingleton
-     * @staticvar
+     * @var \Gustav\Utils\TSingleton
      */
     private static $_instance;
     

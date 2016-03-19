@@ -37,8 +37,7 @@ class ErrorHandler {
     /**
      * Some data of the last occurred error or warning.
      *
-     * @var       array
-     * @staticvar
+     * @var array
      */
     private static $_error = array();
     
@@ -47,15 +46,14 @@ class ErrorHandler {
      * will be logged in log file. If the error is fatal, a friendly error
      * message will be output and the script will halt.
      *
-     * @param  int    $number  The error code (as defined by PHP)
-     * @param  string $message The error message
-     * @param  string $file    The file in which the error occurred
-     * @param  int    $line    The line of code in which the error occurred
-     * @param  array  $context The context on error occurrence
-     * @static
+     * @param  integer $number  The error code (as defined by PHP)
+     * @param  string  $message The error message
+     * @param  string  $file    The file in which the error occurred
+     * @param  integer $line    The line of code in which the error occurred
+     * @param  array   $context The context on error occurrence
      */
-    public static function setError($number, $message, $file = "", $line = 0,
-            $context = array()) {
+    public static function setError(int $number, string $message,
+            string $file = "", int $line = 0, array $context = array()) {
         if($file === "") {
             $debug = \debug_backtrace();
             $file = $debug[1]['file'];
@@ -90,14 +88,13 @@ class ErrorHandler {
      * will only be logged in log file. The script does not halt afterwards and
      * no friendly message will appear in output.
      *
-     * @param  string $message The error message
-     * @param  string $file    The file in which the error occurred
-     * @param  int    $line    The line of code in which the error occurred
-     * @param  array  $context The context on error occurrence
-     * @static
+     * @param string  $message The error message
+     * @param string  $file    The file in which the error occurred
+     * @param integer $line    The line of code in which the error occurred
+     * @param array   $context The context on error occurrence
      */
-    public static function setWarning($message, $file = "", $line = 0,
-            $context = array()) {
+    public static function setWarning(string $message, string $file = "",
+            int $line = 0, array $context = array()) {
         if($file === "") {
             $debug = \debug_backtrace(0, 2);
             $file = $debug[1]['file'];
@@ -108,8 +105,6 @@ class ErrorHandler {
     
     /**
      * Adds a log entry in error log after occurrence of a fatal error.
-     * 
-     * @static
      */
     private static function logError() {
         echo self::$_error['message'] . "," . self::$_error['file'] . ","
@@ -120,8 +115,6 @@ class ErrorHandler {
     
     /**
      * Adds a log entry in warning log after occurrence of a warning.
-     * 
-     * @static
      */
     private static function logWarning() {
         echo self::$_error['message'] . "," . self::$_error['file'] . ","
@@ -134,8 +127,6 @@ class ErrorHandler {
     /**
      * Prints a friendly message about that error on output. Please note that
      * the concrete error message will not appear in this message.
-     * 
-     * @static
      */
     private static function printError() {
         //TODO!!!

@@ -41,16 +41,14 @@ class RequestData {
     /**
      * The current used HTTP request method.
      * 
-     * @var       integer
-     * @staticvar
+     * @var integer
      */
     private static $_method;
     
     /**
      * The array containing all the input data.
      * 
-     * @var       array
-     * @staticvar
+     * @var array
      */
     private static $_data = array();
     
@@ -58,8 +56,7 @@ class RequestData {
      * This property indicates whether the current request uses HTTPS (true) or
      * simple HTTP (false).
      * 
-     * @var       boolean
-     * @staticvar
+     * @var boolean
      */
     private static $_https;
     
@@ -67,8 +64,7 @@ class RequestData {
      * The called (sub-)domain. This is reasonable especially in systems with
      * more than one domain resp. sub-domain.
      * 
-     * @var       string
-     * @staticvar
+     * @var string
      */
     private static $_domain;
     
@@ -76,8 +72,7 @@ class RequestData {
      * The file that was called. This includes the absolute path to the file,
      * too.
      * 
-     * @var       string
-     * @staticvar
+     * @var string
      */
     private static $_file;
     
@@ -85,8 +80,7 @@ class RequestData {
      * The additional path information from request. This is the URL part
      * between file name and query string.
      * 
-     * @var       string
-     * @staticvar
+     * @var string
      */
     private static $_pathInfo;
     
@@ -101,8 +95,6 @@ class RequestData {
     /**
      * Initializes this class. This means, the request and input data will be
      * loaded and parsed.
-     * 
-     * @static
      */
     public static function initialize() {
         switch($_SERVER['REQUEST_METHOD']) {
@@ -125,8 +117,8 @@ class RequestData {
         self::_parseData($_GET);
         self::_parseData($_POST);
         
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== null
-                && $_SERVER['HTTPS'] !== "off") {
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== null &&
+                $_SERVER['HTTPS'] !== "off") {
             self::$_https = true;
         } else {
             self::$_https = false;
@@ -144,8 +136,7 @@ class RequestData {
     /**
      * Adds the given array data to the input data.
      * 
-     * @param  array $data The data to add
-     * @static
+     * @param array $data The data to add
      */
     private static function _parseData(array $data) {
         foreach($data as $key => $value) {
@@ -158,9 +149,8 @@ class RequestData {
      * constants above will be used as request method.
      * 
      * @return integer The HTTP request method.
-     * @static
      */
-    public static function getRequestMethod() {
+    public static function getRequestMethod(): int {
         return self::$_method;
     }
     
@@ -169,7 +159,6 @@ class RequestData {
      * 
      * @param  string $key The input key
      * @return mixed       The input value
-     * @static
      */
     public static function getValue($key) {
         $key = \mb_strtolower((string) $key);
@@ -185,7 +174,7 @@ class RequestData {
      * @param  string  $key The input key to check
      * @return boolean      true, if the value exists, otherwise, false
      */
-    public static function issetValue($key) {
+    public static function issetValue($key): bool {
         $key = \mb_strtolower((string) $key);
         return isset(self::$_data[$key]);
     }
@@ -195,9 +184,8 @@ class RequestData {
      * (false).
      * 
      * @return boolean true, if HTTPS was used, otherwise false
-     * @static
      */
-    public static function isHttps() {
+    public static function isHttps(): bool {
         return self::$_https;
     }
     
@@ -205,9 +193,8 @@ class RequestData {
      * Returns the called (sub-)domain.
      * 
      * @return string The domain or sub-domain
-     * @static
      */
-    public static function getDomain() {
+    public static function getDomain(): string {
         return self::$_domain;
     }
     
@@ -215,9 +202,8 @@ class RequestData {
      * Returns the absolute path to the called file incl. the file name.
      * 
      * @return string The called path and file
-     * @static
      */
-    public static function getFile() {
+    public static function getFile(): string {
         return self::$_file;
     }
     
@@ -226,9 +212,8 @@ class RequestData {
      * part between file name and query string.
      * 
      * @return string The path information
-     * @static
      */
-    public static function getPathInfo() {
+    public static function getPathInfo(): string {
         return self::$_pathInfo;
     }
 }

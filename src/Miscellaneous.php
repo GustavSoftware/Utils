@@ -38,9 +38,8 @@ class Miscellaneous {
      * @param  string  $interface The interface name
      * @return boolean            true, if the class/object implements the
      *                            interface, otherwise false
-     * @static
      */
-    public static function implementsInterface($class, $interface) {
+    public static function implementsInterface($class, string $interface): bool {
         if(\mb_substr($interface, 0, 1) === "\\") { //remove the leading backslash
             $interface = \mb_substr($interface, 1);
         }
@@ -55,9 +54,8 @@ class Miscellaneous {
      * @param  string  $trait The trait name
      * @return boolean        true, if the class/object uses the trait,
      *                        otherwise false
-     * @static
      */
-    public static function usesTrait($class, $trait) {
+    public static function usesTrait($class, string $trait): bool {
         if(\mb_substr($trait, 0, 1) === "\\") { //remove the leading backslash
             $trait = \mb_substr($trait, 1);
         }
@@ -69,10 +67,8 @@ class Miscellaneous {
      *
      * @param  string $className The class name to check
      * @return string            The class name with leading "\"
-     * @static
      */
-    public static function prepareClassName($className) {
-        $className = (string) $className;
+    public static function prepareClassName(string $className): string {
         if(\mb_strpos($className, "\\") !== 0) {
             return "\\" . $className;
         }
@@ -82,13 +78,11 @@ class Miscellaneous {
     /**
      * Converts a integer value into an unicode symbol with this code number.
      *
-     * @param  int    $code The code number
-     * @return string       The unicode symbol
-     * @static
+     * @param  integer $code The code number
+     * @return string        The unicode symbol
      */
-    public static function getUnicodeChar($code) {
-        return mb_convert_encoding("&#" . intval($code) . ";", "UTF-8",
-                "HTML-ENTITIES");
+    public static function getUnicodeChar(int $code): string {
+        return mb_convert_encoding("&#{$code};", "UTF-8", "HTML-ENTITIES");
     }
     
     /**
@@ -100,9 +94,8 @@ class Miscellaneous {
      * @param  string $string The string to trim
      * @return string         The string without whitespace on begin and end
      * @see    http://crossreference.mybboard.de/nav.html?inc/functions.php.html
-     * @static
      */
-    public static function trimBlanks($string) {
+    public static function trimBlanks(string $string): string {
         $hex_chars = array(
             0x09 => 1, // \x{0009}
             0x0A => 1, // \x{000A}
@@ -200,7 +193,7 @@ class Miscellaneous {
      * @param  array $array The array to clone
      * @return array        The cloned array
      */
-    public static function cloneArray(array $array) {
+    public static function cloneArray(array $array): array {
         $newArray = array();
         foreach($array as $key => $value) {
             if(\is_object($value)) {
@@ -224,9 +217,9 @@ class Miscellaneous {
      * @param  integer $n      Number of matches
      * @return integer         The number matched
      * @see    http://crossreference.mybboard.de/nav.html?inc/functions.php.html
-     * @static
      */
-    private static function _match_sequence($string, $array, $i=0, $n=0) {
+    private static function _match_sequence(string $string, array $array,
+            int $i = 0, int $n = 0): int {
         if($string === "") {
             return 0;
         }

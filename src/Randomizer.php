@@ -44,12 +44,12 @@ class Randomizer {
     /**
      * Creates a random alphanumeric string with the given length.
      *
-     * @param  int     $length    The length of the string (default is 20)
+     * @param  integer $length    The length of the string (default is 20)
      * @param  boolean $forceSeed true, if randomizer should be seeded again
      * @return string             A random string with the given length
-     * @static
      */
-    public static function getString($length = 20, $forceSeed = false) {
+    public static function getString(int $length = 20,
+            bool $forceSeed = false): string {
         $set = array("a","A","b","B","c","C","d","D","e","E","f","F","g","G",
                 "h","H","i","I","j","J","k","K","l","L","m","M","n","N","o","O",
                 "p","P","q","Q","r","R","s","S","t","T","u","U","v","V","w","W",
@@ -69,13 +69,14 @@ class Randomizer {
      * minimum is greater than the given maximum, then the complete 64 bit
      * range of integers will be used.
      *
-     * @param  int     $min       The ranges lower bound
-     * @param  int     $max       The ranges upper bound
+     * @param  integer $min       The ranges lower bound
+     * @param  integer $max       The ranges upper bound
      * @param  boolean $forceSeed true, if randomizer should be seeded again
-     * @return int                A random integer
+     * @return integer            A random integer
      * @static
      */
-    public static function getInt($min = 0, $max = -1, $forceSeed = false) {
+    public static function getInt(int $min = 0, int $max = -1,
+            bool $forceSeed = false): int {
         if(self::$_seeded === false || $forceSeed === true) {
             self::_seedRandomizer();
         }
@@ -92,16 +93,17 @@ class Randomizer {
      * given minimum is greater than the given maximum, then the complete 64
      * bit range of floats will be used.
      * 
-     * @param  int     $min       The ranges lower bound
-     * @param  int     $max       The ranges upper bound
+     * @param  integer $min       The ranges lower bound
+     * @param  integer $max       The ranges upper bound
      * @param  boolean $forceSeed true, if randomizer should be seeded again
      * @return float              A random float
      * @static
      */
-    public static function getFloat($min = 0, $max = 1, $forceSeed = false) {
+    public static function getFloat(int $min = 0, int $max = 1,
+            bool $forceSeed = false): float {
         if($max > $min) {
-            return $min + (float) self::getInt(0, -1, $forceSeed)
-                    / mt_getrandmax() * ($max - $min);
+            return $min + (float) self::getInt(0, -1, $forceSeed) /
+                mt_getrandmax() * ($max - $min);
         } else {
             return (float) self::getInt(0, -1, $forceSeed) / mt_getrandmax();
         }
@@ -109,8 +111,6 @@ class Randomizer {
     
     /**
      * Creates a new random seed for more randomness.
-     * 
-     * @static
      **/
     private static function _seedRandomizer() {
         self::$_seeded = true;
