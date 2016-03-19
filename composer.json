@@ -13,6 +13,6 @@
         "ext-openssl": "*"
     },
     "autoload": {
-        "psr-0": { "Gustav\\Utils\\": "libs/" }
+        "psr-4": { "Gustav\\Utils\\": "src/" }
     }
 }
