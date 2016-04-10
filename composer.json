@@ -10,7 +10,9 @@
     ],
     "require": {
         "php": "~7.0",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "ext-mbstring": "*",
+        "psr/log": "1.0.0"
     },
     "autoload": {
         "psr-4": { "Gustav\\Utils\\": "src/" }
