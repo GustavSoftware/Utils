@@ -49,39 +49,36 @@ class LogManager
     
     /**
      * Creates a new logger with the help of the given configuration data. This
-     * method has no effect, if another logger with the same name exists, yet.
+     * method has no effect, if another logger with the same identifier exists,
+     * yet.
      * 
      * @param \Gustav\Utils\Log\Configuration $configuration
      *   The configuration of the logger to create here
-     * @param string $name
-     *   The identifying name of the logger to get this later on call of
-     *   \Gustav\Utils\Log\LogManager::getLogger()
      * @return \Psr\Log\LoggerInterface
      *   The new logger (resp. the logger with the same name, if it exists, yet)
      */
-    public static function createLogger(
-        Configuration $configuration,
-        string $name = ""
-    ): LoggerInterface {
-        if(isset(self::$_loggers[$name])) {
-            return self::$_loggers[$name]; //just ignore the new configuration
+    public static function getLogger(Configuration $configuration): LoggerInterface
+    {
+        $identifier = $configuration->getIdentifier();
+        if(isset(self::$_loggers[$identifier])) {
+            return self::$_loggers[$identifier]; //just ignore the new configuration
         }
         switch($configuration->getImplementation()) {
             case FileLogger::class:
                 $fileName = $configuration->getFileName();
                 if(isset(self::$_nameMap[$fileName])) {
-                    self::$_loggers[$name] = 
+                    self::$_loggers[$identifier] =
                         self::$_loggers[self::$_nameMap[$fileName]];
                     break;
                 }
-                self::$_nameMap[$fileName] = $name;
-                self::$_loggers[$name] = new FileLogger($configuration);
+                self::$_nameMap[$fileName] = $identifier;
+                self::$_loggers[$identifier] = new FileLogger($configuration);
                 break;
             default:
                 $className = $configuration->getImplementation();
-                self::$_loggers[$name] = new $className($configuration);
+                self::$_loggers[$identifier] = new $className($configuration);
         }
-        return self::$_loggers[$name];
+        return self::$_loggers[$identifier];
     }
     
     /**
@@ -90,21 +87,23 @@ class LogManager
      * 
      * @param \Psr\Log\LoggerInterface $logger
      *   The logger
-     * @param string $name
+     * @param string $identifier
      *   The identifying name of the logger to get this later on call of
      *   \Gustav\Utils\Log\LogManager::getLogger()
      */
-    public static function addLogger(LoggerInterface $logger, string $name = "")
-    {
-        if(!isset(self::$_loggers[$name])) {
-            self::$_loggers[$name] = $logger;
+    public static function addLogger(
+        LoggerInterface $logger,
+        string $identifier = ""
+    ) {
+        if(!isset(self::$_loggers[$identifier])) {
+            self::$_loggers[$identifier] = $logger;
         }
     }
     
     /**
      * Returns the logger with the given name.
      * 
-     * @param string $name
+     * @param string $identifier
      *   The identifying name of the logger to get this later on call of
      *   \Gustav\Utils\Log\LogManager::getLogger()
      * @return \Psr\Log\LoggerInterface
@@ -112,11 +111,12 @@ class LogManager
      * @throws \Gustav\Utils\Log\LogException
      *   Unknown logger
      */
-    public static function getLogger(string $name = ""): LoggerInterface
-    {
-        if(!isset(self::$_loggers[$name])) {
-            throw LogException::unknownLogger($name);
+    public static function getLoggerByIdentifier(
+        string $identifier = ""
+    ): LoggerInterface {
+        if(!isset(self::$_loggers[$identifier])) {
+            throw LogException::unknownLogger($identifier);
         }
-        return self::$_loggers[$name];
+        return self::$_loggers[$identifier];
     }
 }

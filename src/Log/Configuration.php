@@ -33,6 +33,13 @@ use Psr\Log\LoggerInterface;
 class Configuration
 {
     /**
+     * The identifier of the logger.
+     * 
+     * @var string
+     */
+    private $_identifier;
+    
+    /**
      * The class name of the logger implementation to use here. This class has
      * to implement interface \Psr\Log\LoggerInterface.
      * 
@@ -48,23 +55,36 @@ class Configuration
     private $_fileName = "";
     
     /**
-     * Sets the class name of the implementation of \Psr\Log\LoggerInterface to
-     * use here.
+     * Constructor of this class.
      *
+     * @param string $identifier
+     *   The identifier of the logger
      * @param string $className
-     *   The class name of the implementation
-     * @return \Gustav\Utils\Log\Configuration
-     *   This object
+     *   The class name of the logger implementation to use here. Consider that
+     *   this class has to implement interface \Psr\Log\LoggerInterface
      * @throws \Gustav\Utils\Log\LogException
      *   Invalid implementation
      */
-    public function setImplementation(string $className): self
-    {
+    public function __construct(
+        string $identifier = "",
+        string $className = FileLogger::class
+    ) {
         if(!Miscellaneous::implementsInterface($className, LoggerInterface::class)) {
             throw LogException::invalidImplementation($className);
         }
+        $this->_identifier = $identifier;
         $this->_implementation = $className;
-        return $this;
+    }
+    
+    /**
+     * Returns the identifier of the logger to use here.
+     * 
+     * @return string
+     *   The logger's identifier
+     */
+    public function getIdentifier(): string
+    {
+        return $this->_identifier;
     }
     
     /**
@@ -73,7 +93,7 @@ class Configuration
      * @return string
      *   The class name of the implementation
      */
-    public function getImplementation()
+    public function getImplementation(): string
     {
         return $this->_implementation;
     }
@@ -98,7 +118,7 @@ class Configuration
      * @return string
      *   The file name of the log file
      */
-    public function getFileName()
+    public function getFileName(): string
     {
         return $this->_fileName;
     }
