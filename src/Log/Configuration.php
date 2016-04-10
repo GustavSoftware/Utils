@@ -41,11 +41,12 @@ class Configuration
     
     /**
      * The class name of the logger implementation to use here. This class has
-     * to implement interface \Psr\Log\LoggerInterface.
+     * to implement interface \Psr\Log\LoggerInterface. Defaults to output on
+     * standard output (\Gustav\Utils\Log\PrintLogger).
      * 
      * @var string
      */
-    private $_implementation = FileLogger::class;
+    private $_implementation;
     
     /**
      * The fully qualified name of the log file, if we use FileLogger.
@@ -67,7 +68,7 @@ class Configuration
      */
     public function __construct(
         string $identifier = "",
-        string $className = FileLogger::class
+        string $className = PrintLogger::class
     ) {
         if(!Miscellaneous::implementsInterface($className, LoggerInterface::class)) {
             throw LogException::invalidImplementation($className);

@@ -23,13 +23,13 @@ namespace Gustav\Utils\Log;
 use Psr\Log\InvalidArgumentException;
 
 /**
- * This class logs errors and writes them into a file on filesystem.
+ * This class logs errors and writes them into a .csv-file on filesystem.
  *
  * @author Chris Köcher <ckone@fieselschweif.de>
  * @link   http://gustav.fieselschweif.de
  * @since  1.0
  */
-class FileLogger extends ALogger
+class CsvLogger extends ALogger
 {
     /**
      * The file name of this logger.
@@ -52,8 +52,12 @@ class FileLogger extends ALogger
             throw LogException::invalidFileName($configuration->getFileName());
         }
         $this->_fileName = $configuration->getFileName();
+        if(!\file_exists($this->_fileName)) {
+            $header = "time,level,message,exception type,exception code,exception message,trace\n";
+            \file_put_contents($this->_fileName, $header);
+        }
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -63,18 +67,23 @@ class FileLogger extends ALogger
             throw new InvalidArgumentException("invalid log level {$level}");
         }
 
-        $addMessage = \time() . " - {$level}: " .
-            $this->_interpolate($message, $context) . "\n";
+        $addMessage = \time() . ",{$level},\"" .
+            \str_replace('"', '""', $this->_interpolate($message, $context)) .
+            "\"";
 
         if(
             isset($context['exception']) &&
             $context['exception'] instanceof \Exception
         ) {
-            $addMessage .= "\tException: " . \get_class($context['exception']) .
-                " (Code: {$context['exception']->getCode()}) " .
-                $context['exception']->getMessage() . "\n" .
-                "\tTrace: " . $context['exception']->getTraceAsString() . "\n";
+            $addMessage .= "," . \get_class($context['exception']) . "," .
+                $context['exception']->getCode() . ",\"" .
+                \str_replace('"', '""', $context['exception']->getMessage()) .
+                "\",\"" .
+                \str_replace('"', '""', $context['exception']->getTraceAsString()) .
+                "\"";
         }
+
+        $addMessage .= "\n";
 
         file_put_contents($this->_fileName, $addMessage, \FILE_APPEND);
     }

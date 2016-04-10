@@ -23,37 +23,14 @@ namespace Gustav\Utils\Log;
 use Psr\Log\InvalidArgumentException;
 
 /**
- * This class logs errors and writes them into a file on filesystem.
+ * This class logs errors and writes them to standard output.
  *
  * @author Chris Köcher <ckone@fieselschweif.de>
  * @link   http://gustav.fieselschweif.de
  * @since  1.0
  */
-class FileLogger extends ALogger
+class PrintLogger extends ALogger
 {
-    /**
-     * The file name of this logger.
-     *
-     * @var string
-     */
-    private $_fileName;
-
-    /**
-     * Constructor of this class.
-     *
-     * @param \Gustav\Utils\Log\Configuration $configuration
-     *   The configuration data
-     * @throws \Gustav\Utils\Log\LogException
-     *   Invalid file name
-     */
-    public function __construct(Configuration $configuration)
-    {
-        if(!$configuration->getFileName() == "") {
-            throw LogException::invalidFileName($configuration->getFileName());
-        }
-        $this->_fileName = $configuration->getFileName();
-    }
-    
     /**
      * @inheritdoc
      */
@@ -62,20 +39,20 @@ class FileLogger extends ALogger
         if(!\in_array($level, self::$_levels)) {
             throw new InvalidArgumentException("invalid log level {$level}");
         }
-
-        $addMessage = \time() . " - {$level}: " .
-            $this->_interpolate($message, $context) . "\n";
-
+        
+        $addMessage = "<strong>" . \time() . " - {$level}</strong>: " .
+            $this->_interpolate($message, $context) . "<br />";
+        
         if(
             isset($context['exception']) &&
             $context['exception'] instanceof \Exception
         ) {
-            $addMessage .= "\tException: " . \get_class($context['exception']) .
+            $addMessage .= "<em>Exception</em>: " . \get_class($context['exception']) .
                 " (Code: {$context['exception']->getCode()}) " .
-                $context['exception']->getMessage() . "\n" .
-                "\tTrace: " . $context['exception']->getTraceAsString() . "\n";
+                $context['exception']->getMessage() . "<br />" .
+                "Trace: " . $context['exception']->getTraceAsString() . "<br />";
         }
-
-        file_put_contents($this->_fileName, $addMessage, \FILE_APPEND);
+        
+        echo "<div class\"log_message log_{$level}\">{$addMessage}</div>";
     }
 }
