@@ -2,7 +2,7 @@
 
 /*
  * Gustav Utils - Some additional libraries needed in ORM or CMS.
- * Copyright (C) 2014-2016  Gustav Software
+ * Copyright (C) since 2014  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,12 +23,12 @@ namespace Gustav\Utils;
 /**
  * This class manages all the request and input data.
  * 
- * @author  Chris Köcher <ckone@fieselschweif.de>
- * @link    http://gustav.fieselschweif.de
- * @package Gustav.Utils
- * @since   1.0
+ * @author Chris Köcher <ckone@fieselschweif.de>
+ * @link   http://gustav.fieselschweif.de
+ * @since  1.0
  */
-class RequestData {
+class RequestData
+{
     /**
      * These constant represent different HTTP request methods.
      */
@@ -50,7 +50,7 @@ class RequestData {
      * 
      * @var array
      */
-    private static $_data = array();
+    private static $_data = [];
     
     /**
      * This property indicates whether the current request uses HTTPS (true) or
@@ -88,7 +88,8 @@ class RequestData {
      * The constructor of this class. This method should not be callable and so
      * it's private.
      */
-    private function __construct() {
+    private function __construct()
+    {
         //nothing to do...
     }
     
@@ -96,7 +97,8 @@ class RequestData {
      * Initializes this class. This means, the request and input data will be
      * loaded and parsed.
      */
-    public static function initialize() {
+    public static function initialize()
+    {
         switch($_SERVER['REQUEST_METHOD']) {
             case "POST":
                 self::$_method = self::POST;
@@ -117,8 +119,11 @@ class RequestData {
         self::_parseData($_GET);
         self::_parseData($_POST);
         
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== null &&
-                $_SERVER['HTTPS'] !== "off") {
+        if(
+            isset($_SERVER['HTTPS']) &&
+            $_SERVER['HTTPS'] !== null &&
+            $_SERVER['HTTPS'] !== "off"
+        ) {
             self::$_https = true;
         } else {
             self::$_https = false;
@@ -135,10 +140,12 @@ class RequestData {
     
     /**
      * Adds the given array data to the input data.
-     * 
-     * @param array $data The data to add
+     *
+     * @param array $data
+     *   The data to add
      */
-    private static function _parseData(array $data) {
+    private static function _parseData(array $data)
+    {
         foreach($data as $key => $value) {
             self::$_data[\mb_strtolower($key)] = $value;
         }
@@ -147,21 +154,26 @@ class RequestData {
     /**
      * Returns the HTTP request method. Consider that the value of one of the
      * constants above will be used as request method.
-     * 
-     * @return integer The HTTP request method.
+     *
+     * @return integer
+     *   The HTTP request method.
      */
-    public static function getRequestMethod(): int {
+    public static function getRequestMethod(): int
+    {
         return self::$_method;
     }
     
     /**
      * Returns the value with the given key from input data.
-     * 
-     * @param  string $key The input key
-     * @return mixed       The input value
+     *
+     * @param string $key
+     *   The input key
+     * @return mixed
+     *   The input value
      */
-    public static function getValue($key) {
-        $key = \mb_strtolower((string) $key);
+    public static function getValue(string $key)
+    {
+        $key = \mb_strtolower($key);
         if(isset(self::$_data[$key])) {
             return self::$_data[$key];
         }
@@ -170,50 +182,61 @@ class RequestData {
     
     /**
      * Checks whether a value t the given input key was set in the form.
-     * 
-     * @param  string  $key The input key to check
-     * @return boolean      true, if the value exists, otherwise, false
+     *
+     * @param string $key
+     *   The input key to check
+     * @return boolean
+     *   true, if the value exists, otherwise, false
      */
-    public static function issetValue($key): bool {
-        $key = \mb_strtolower((string) $key);
+    public static function issetValue(string $key): bool
+    {
+        $key = \mb_strtolower($key);
         return isset(self::$_data[$key]);
     }
     
     /**
      * Checks whether the current request uses HTTPS (true) or simple HTTP
      * (false).
-     * 
-     * @return boolean true, if HTTPS was used, otherwise false
+     *
+     * @return boolean
+     *   true, if HTTPS was used, otherwise false
      */
-    public static function isHttps(): bool {
+    public static function isHttps(): bool
+    {
         return self::$_https;
     }
     
     /**
      * Returns the called (sub-)domain.
-     * 
-     * @return string The domain or sub-domain
+     *
+     * @return string
+     *   The domain or sub-domain
      */
-    public static function getDomain(): string {
+    public static function getDomain(): string
+    {
         return self::$_domain;
     }
     
     /**
      * Returns the absolute path to the called file incl. the file name.
-     * 
-     * @return string The called path and file
+     *
+     * @return string
+     *   The called path and file
      */
-    public static function getFile(): string {
+    public static function getFile(): string
+    {
         return self::$_file;
     }
     
     /**
      * Returns the path information from the current request. This is the URL
      * part between file name and query string.
-     * 
-     * @return string The path information
+     *
+     * @return string
+     *   The path information
      */
-    public static function getPathInfo(): string {
+    public static function getPathInfo(): string
+    {
         return self::$_pathInfo;
     }
 }

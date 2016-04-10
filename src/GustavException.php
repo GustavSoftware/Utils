@@ -2,7 +2,7 @@
 
 /*
  * Gustav Utils - Some additional libraries needed in ORM or CMS.
- * Copyright (C) 2014-2016  Gustav Software
+ * Copyright (C) since 2014  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +25,11 @@ namespace Gustav\Utils;
  * of this software. It can be used for throwing of exceptions, too, that don't
  * match to the special exception classes of the components of this software.
  * 
- * @author  Chris Köcher <ckone@fieselschweif.de>
- * @link    http://gustav.fieselschweif.de
- * @package Gustav.Utils
- * @since   1.0
+ * @author Chris Köcher <ckone@fieselschweif.de>
+ * @link   http://gustav.fieselschweif.de
+ * @since  1.0
  */
-class GustavException extends \Exception {
+class GustavException extends \Exception
+{
     //that's all
 }

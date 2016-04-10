@@ -2,7 +2,7 @@
 
 /*
  * Gustav Utils - Some additional libraries needed in ORM or CMS.
- * Copyright (C) 2014-2016  Gustav Software
+ * Copyright (C) since 2014  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,22 +24,25 @@ namespace Gustav\Utils;
  * This class implements some miscellaneous functions that are needed in
  * various places in CMS and other Gustav projects.
  * 
- * @author  Chris Köcher <ckone@fieselschweif.de>
- * @link    http://gustav.fieselschweif.de
- * @package Gustav.Utils
- * @since   1.0
+ * @author Chris Köcher <ckone@fieselschweif.de>
+ * @link   http://gustav.fieselschweif.de
+ * @since  1.0
  */
-class Miscellaneous {
+class Miscellaneous
+{
     /**
      * Checks whether the class or object in first argument implements the
      * interface with name in second argument.
      *
-     * @param  mixed   $class     The class name or object
-     * @param  string  $interface The interface name
-     * @return boolean            true, if the class/object implements the
-     *                            interface, otherwise false
+     * @param mixed $class
+     *   The class name or object
+     * @param string $interface
+     *   The interface name
+     * @return boolean
+     *   true, if the class/object implements the interface, otherwise false
      */
-    public static function implementsInterface($class, string $interface): bool {
+    public static function implementsInterface($class, string $interface): bool
+    {
         if(\mb_substr($interface, 0, 1) === "\\") { //remove the leading backslash
             $interface = \mb_substr($interface, 1);
         }
@@ -49,13 +52,16 @@ class Miscellaneous {
     /**
      * Checks whether the class or object in first argument uses the trait with
      * name in second argument.
-     * 
-     * @param  mixed   $class The class name or object
-     * @param  string  $trait The trait name
-     * @return boolean        true, if the class/object uses the trait,
-     *                        otherwise false
+     *
+     * @param mixed $class
+     *   The class name or object
+     * @param string $trait
+     *   The trait name
+     * @return boolean
+     *   true, if the class/object uses the trait, otherwise false
      */
-    public static function usesTrait($class, string $trait): bool {
+    public static function usesTrait($class, string $trait): bool
+    {
         if(\mb_substr($trait, 0, 1) === "\\") { //remove the leading backslash
             $trait = \mb_substr($trait, 1);
         }
@@ -65,10 +71,13 @@ class Miscellaneous {
     /**
      * Checks if a given class name begins with a "\" and adds this if not.
      *
-     * @param  string $className The class name to check
-     * @return string            The class name with leading "\"
+     * @param string $className
+     *   The class name to check
+     * @return string
+     *   The class name with leading "\"
      */
-    public static function prepareClassName(string $className): string {
+    public static function prepareClassName(string $className): string
+    {
         if(\mb_strpos($className, "\\") !== 0) {
             return "\\" . $className;
         }
@@ -78,10 +87,13 @@ class Miscellaneous {
     /**
      * Converts a integer value into an unicode symbol with this code number.
      *
-     * @param  integer $code The code number
-     * @return string        The unicode symbol
+     * @param integer $code
+     *   The code number
+     * @return string
+     *   The unicode symbol
      */
-    public static function getUnicodeChar(int $code): string {
+    public static function getUnicodeChar(int $code): string
+    {
         return mb_convert_encoding("&#{$code};", "UTF-8", "HTML-ENTITIES");
     }
     
@@ -91,11 +103,14 @@ class Miscellaneous {
      * whitespace, too.
      * This method was copied from MyBBs trim_blank_chrs().
      *
-     * @param  string $string The string to trim
-     * @return string         The string without whitespace on begin and end
-     * @see    http://crossreference.mybboard.de/nav.html?inc/functions.php.html
+     * @param string $string
+     *   The string to trim
+     * @return string
+     *   The string without whitespace on begin and end
+     * @see http://crossreference.mybboard.de/nav.html?inc/functions.php.html
      */
-    public static function trimBlanks(string $string): string {
+    public static function trimBlanks(string $string): string
+    {
         $hex_chars = array(
             0x09 => 1, // \x{0009}
             0x0A => 1, // \x{000A}
@@ -189,12 +204,15 @@ class Miscellaneous {
     /**
      * This method clones an array recursively. So all objects contained in this
      * array will be cloned correctly.
-     * 
-     * @param  array $array The array to clone
-     * @return array        The cloned array
+     *
+     * @param array $array
+     *   The array to clone
+     * @return array
+     *   The cloned array
      */
-    public static function cloneArray(array $array): array {
-        $newArray = array();
+    public static function cloneArray(array $array): array
+    {
+        $newArray = [];
         foreach($array as $key => $value) {
             if(\is_object($value)) {
                 $newArray[$key] = clone $value;
@@ -211,15 +229,24 @@ class Miscellaneous {
      * Matches a sequence.
      * This method was copied from MyBBs match_sequence().
      *
-     * @param  string  $string The string to match from
-     * @param  array   $array  The array to match from
-     * @param  integer $i      Number in the string
-     * @param  integer $n      Number of matches
-     * @return integer         The number matched
-     * @see    http://crossreference.mybboard.de/nav.html?inc/functions.php.html
+     * @param string $string
+     *   The string to match from
+     * @param array $array
+     *   The array to match from
+     * @param integer $i
+     *   Number in the string
+     * @param integer $n
+     *   Number of matches
+     * @return integer
+     *   The number matched
+     * @see http://crossreference.mybboard.de/nav.html?inc/functions.php.html
      */
-    private static function _match_sequence(string $string, array $array,
-            int $i = 0, int $n = 0): int {
+    private static function _match_sequence(
+        string $string,
+        array $array,
+        int $i = 0,
+        int $n = 0
+    ): int {
         if($string === "") {
             return 0;
         }

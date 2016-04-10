@@ -2,7 +2,7 @@
 
 /*
  * Gustav Utils - Some additional libraries needed in ORM or CMS.
- * Copyright (C) 2014-2016  Gustav Software
+ * Copyright (C) since 2014  Gustav Software
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,25 +24,26 @@ namespace Gustav\Utils;
  * This trait implements the Singleton design pattern. This means, classes that
  * use this trait can only be instantiated once.
  * 
- * @author  Chris Köcher <ckone@fieselschweif.de>
- * @link    http://gustav.fieselschweif.de
- * @package Gustav.Utils
- * @since   1.0
+ * @author Chris Köcher <ckone@fieselschweif.de>
+ * @link   http://gustav.fieselschweif.de
+ * @since  1.0
  */
-trait TSingleton {
+trait TSingleton
+{
     /**
      * The only instance of this class.
      *
-     * @var \Gustav\Utils\TSingleton
+     * @var self|null
      */
-    private static $_instance;
+    private static $_instance = null;
     
     /**
-     * This method is private for avoiding of multiple instantiation of this
+     * This method is protected for avoiding of multiple instantiation of this
      * class. For instantiation use \Gustav\Utils\Singleton::getInstance()
      * instead. This method can be overwritten by the developer.
      */
-    protected function __construct() {
+    protected function __construct()
+    {
         //nothing to do
     }
     
@@ -50,17 +51,19 @@ trait TSingleton {
      * This method is private for avoiding of copying of instances of this
      * class. This method should not be overwritten by the developer!
      */
-    private function __clone() {
+    private function __clone()
+    {
         //nothing to do
     }
     
     /**
      * Returns the only instance of this class.
      *
-     * @return \Gustav\Utils\TSingleton The only instance of this class
-     * @static
+     * @return self
+     *   The only instance of this class
      */
-    public static function getInstance() {
+    public static function getInstance(): self
+    {
         if(self::$_instance === null) {
             self::$_instance = new self();
         }
