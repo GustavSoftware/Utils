@@ -64,6 +64,7 @@ class LogManager
             return self::$_loggers[$identifier]; //just ignore the new configuration
         }
         switch($configuration->getImplementation()) {
+            case CsvLogger::class:
             case FileLogger::class:
                 $fileName = $configuration->getFileName();
                 if(isset(self::$_nameMap[$fileName])) {
