@@ -186,27 +186,27 @@ class Types
     {
         if(\is_int($type)) {
             switch($type) {
-                case Types::TYPE_INT:
+                case self::TYPE_INT:
                     return "integer";
-                case Types::TYPE_LONG:
+                case self::TYPE_LONG:
                     return "long";
-                case Types::TYPE_SHORT:
+                case self::TYPE_SHORT:
                     return "short";
-                case Types::TYPE_BOOLEAN:
+                case self::TYPE_BOOLEAN:
                     return "boolean";
-                case Types::TYPE_FLOAT:
+                case self::TYPE_FLOAT:
                     return "float";
-                case Types::TYPE_STRING:
+                case self::TYPE_STRING:
                     return "string";
-                case Types::TYPE_CHAR:
+                case self::TYPE_CHAR:
                     return "char";
-                case Types::TYPE_VARCHAR:
+                case self::TYPE_VARCHAR:
                     return "varchar";
-                case Types::TYPE_ARRAY:
+                case self::TYPE_ARRAY:
                     return "array";
-                case Types::TYPE_OBJECT:
+                case self::TYPE_OBJECT:
                     return "object";
-                case Types::TYPE_DATE:
+                case self::TYPE_DATE:
                     return "date";
             }
         }
