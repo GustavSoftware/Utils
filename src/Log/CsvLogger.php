@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * Gustav Utils - Some additional libraries needed in ORM or CMS.
  * Copyright (C) since 2014  Gustav Software
  *
