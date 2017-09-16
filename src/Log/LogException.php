@@ -38,9 +38,9 @@ class LogException extends GustavException
     /**
      * The possible error codes.
      */
-    const INVALID_IMPLEMENTATION = 1;
-    const UNKNOWN_LOGGER = 2;
-    const INVALID_FILENAME = 3;
+    public const INVALID_IMPLEMENTATION = 1;
+    public const UNKNOWN_LOGGER = 2;
+    public const INVALID_FILENAME = 3;
     
     /**
      * Creates an exception if an invalid logger implementation was set in

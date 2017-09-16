@@ -30,25 +30,32 @@ namespace Gustav\Utils;
 class Types
 {
     /**
+     * This constant represents an unknown data type.
+     *
+     * @var integer
+     */
+    public const TYPE_UNKNOWN = 0;
+
+    /**
      * This constant represents the data type of integer numbers with 32 bits.
      *
      * @var integer
      */
-    const TYPE_INT = 1;
+    public const TYPE_INT = 1;
 
     /**
      * This constant represents the data type of integer numbers with 64 bits.
      *
      * @var integer
      */
-    const TYPE_LONG = 2;
+    public const TYPE_LONG = 2;
 
     /**
      * This constant represents the data type of integer numbers with 16 bits.
      *
      * @var integer
      */
-    const TYPE_SHORT = 3;
+    public const TYPE_SHORT = 3;
 
     /**
      * This constant represents the data type of boolean values (i.e. values are
@@ -56,7 +63,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_BOOLEAN = 4;
+    public const TYPE_BOOLEAN = 4;
 
     /**
      * This constant represents the data type of floating-point numbers with
@@ -64,7 +71,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_FLOAT = 5;
+    public const TYPE_FLOAT = 5;
 
     /**
      * This constant represents the data type of strings without length
@@ -72,7 +79,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_STRING = 6;
+    public const TYPE_STRING = 6;
 
     /**
      * This constant represents the data type of strings with exact length. The
@@ -80,7 +87,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_CHAR = 7;
+    public const TYPE_CHAR = 7;
 
     /**
      * This constant represents the data type of strings with maximum length.
@@ -88,7 +95,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_VARCHAR = 8;
+    public const TYPE_VARCHAR = 8;
 
     /**
      * This constant represents the data type of associative data arrays.
@@ -96,7 +103,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_ARRAY = 9;
+    public const TYPE_ARRAY = 9;
 
     /**
      * This constant represents the data type of data objects. Normally these
@@ -104,7 +111,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_OBJECT = 10;
+    public const TYPE_OBJECT = 10;
 
     /**
      * This constant represents PHPs DateTime type. These will be saved as
@@ -112,7 +119,7 @@ class Types
      *
      * @var integer
      */
-    const TYPE_DATE = 11;
+    public const TYPE_DATE = 11;
 
     /**
      * Checks whether the given type expression (that means, one of the
@@ -125,7 +132,7 @@ class Types
      */
     public static function isInteger($type): bool
     {
-        return (\is_int($type) && $type <= self::TYPE_SHORT);
+        return (\is_int($type) && $type <= self::TYPE_SHORT && $type > 0);
     }
 
     /**
@@ -157,7 +164,7 @@ class Types
      */
     public static function isNumeric($type): bool
     {
-        return (\is_int($type) && $type <= self::TYPE_FLOAT);
+        return (\is_int($type) && $type <= self::TYPE_FLOAT && $type > 0);
     }
 
     /**
@@ -171,7 +178,7 @@ class Types
      */
     public static function isScalar($type): bool
     {
-        return (\is_int($type) && $type <= self::TYPE_VARCHAR);
+        return (\is_int($type) && $type <= self::TYPE_VARCHAR && $type > 0);
     }
 
     /**
@@ -186,6 +193,8 @@ class Types
     {
         if(\is_int($type)) {
             switch($type) {
+                case self::TYPE_UNKNOWN:
+                    return "unknown";
                 case self::TYPE_INT:
                     return "integer";
                 case self::TYPE_LONG:

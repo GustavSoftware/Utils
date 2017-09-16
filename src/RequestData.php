@@ -31,11 +31,11 @@ class RequestData
     /**
      * These constant represent different HTTP request methods.
      */
-    const HEAD = 1;
-    const POST = 2;
-    const GET = 3;
-    const PUT = 4;
-    const DELETE = 5;
+    public const HEAD = 1;
+    public const POST = 2;
+    public const GET = 3;
+    public const PUT = 4;
+    public const DELETE = 5;
     
     /**
      * The current used HTTP request method.
