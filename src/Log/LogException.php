@@ -53,15 +53,9 @@ class LogException extends GustavException
      * @return \Gustav\Utils\Log\LogException
      *   The exception
      */
-    public static function invalidImplementation(
-        string $className,
-        \Exception $previous = null
-    ): self {
-        return new self(
-            "class \"{$className}\" is not a logger",
-            self::INVALID_IMPLEMENTATION,
-            $previous
-        );
+    public static function invalidImplementation(string $className, \Exception $previous = null): self
+    {
+        return new self("class \"{$className}\" is not a logger", self::INVALID_IMPLEMENTATION, $previous);
     }
     
     /**
@@ -75,15 +69,9 @@ class LogException extends GustavException
      * @return \Gustav\Utils\Log\LogException
      *   The exception
      */
-    public static function unknownLogger(
-        string $name,
-        \Exception $previous = null
-    ): self {
-        return new self(
-            "could not find logger \"{$name}\"",
-            self::UNKNOWN_LOGGER,
-            $previous
-        );
+    public static function unknownLogger(string $name, \Exception $previous = null): self
+    {
+        return new self("could not find logger \"{$name}\"", self::UNKNOWN_LOGGER, $previous);
     }
     
     /**
@@ -97,14 +85,8 @@ class LogException extends GustavException
      * @return \Gustav\Utils\Log\LogException
      *   The exception
      */
-    public static function invalidFileName(
-        string $fileName,
-        \Exception $previous = null
-    ): self {
-        return new self(
-            "invalid log file \"{$fileName}\"",
-            self::INVALID_FILENAME,
-            $previous
-        );
+    public static function invalidFileName(string $fileName, \Exception $previous = null): self
+    {
+        return new self("invalid log file \"{$fileName}\"", self::INVALID_FILENAME, $previous);
     }
 }

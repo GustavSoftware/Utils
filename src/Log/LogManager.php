@@ -35,7 +35,7 @@ class LogManager
      * 
      * @var \Psr\Log\LoggerInterface[]
      */
-    private static $_loggers = [];
+    private static array $_loggers = [];
     
     /**
      * A map of the logger identifiers to the used file names of the log files
@@ -44,7 +44,7 @@ class LogManager
      * 
      * @var array
      */
-    private static $_nameMap = [];
+    private static array $_nameMap = [];
     
     /**
      * Creates a new logger with the help of the given configuration data. This
@@ -91,10 +91,8 @@ class LogManager
      *   The identifying name of the logger to get this later on call of
      *   \Gustav\Utils\Log\LogManager::getLogger()
      */
-    public static function addLogger(
-        LoggerInterface $logger,
-        string $identifier = ""
-    ) {
+    public static function addLogger(LoggerInterface $logger, string $identifier = ""): void
+    {
         if(!isset(self::$_loggers[$identifier])) {
             self::$_loggers[$identifier] = $logger;
         }
@@ -111,9 +109,8 @@ class LogManager
      * @throws \Gustav\Utils\Log\LogException
      *   Unknown logger
      */
-    public static function getLoggerByIdentifier(
-        string $identifier = ""
-    ): LoggerInterface {
+    public static function getLoggerByIdentifier(string $identifier = ""): LoggerInterface
+    {
         if(!isset(self::$_loggers[$identifier])) {
             throw LogException::unknownLogger($identifier);
         }

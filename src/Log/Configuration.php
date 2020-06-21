@@ -36,7 +36,7 @@ class Configuration
      * 
      * @var string
      */
-    private $_identifier;
+    private string $_identifier;
     
     /**
      * The class name of the logger implementation to use here. This class has
@@ -45,14 +45,14 @@ class Configuration
      * 
      * @var string
      */
-    private $_implementation;
+    private string $_implementation;
     
     /**
      * The fully qualified name of the log file, if we use FileLogger.
      * 
      * @var string
      */
-    private $_fileName = "";
+    private string $_fileName = "";
     
     /**
      * Constructor of this class.
@@ -65,10 +65,8 @@ class Configuration
      * @throws \Gustav\Utils\Log\LogException
      *   Invalid implementation
      */
-    public function __construct(
-        string $identifier = "",
-        string $className = PrintLogger::class
-    ) {
+    public function __construct(string $identifier = "", string $className = PrintLogger::class)
+    {
         if(!Miscellaneous::implementsInterface($className, LoggerInterface::class)) {
             throw LogException::invalidImplementation($className);
         }
@@ -122,6 +120,4 @@ class Configuration
     {
         return $this->_fileName;
     }
-    
-    //TODO: mail configuration!!!
 }

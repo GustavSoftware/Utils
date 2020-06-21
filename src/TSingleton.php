@@ -34,7 +34,7 @@ trait TSingleton
      *
      * @var self|null
      */
-    private static $_instance = null;
+    private static ?self $_instance = null;
     
     /**
      * This method is protected for avoiding of multiple instantiation of this

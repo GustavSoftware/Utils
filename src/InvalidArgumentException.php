@@ -50,12 +50,8 @@ class InvalidArgumentException extends GustavException
      * @return \Gustav\Utils\InvalidArgumentException
      *   The exception
      */
-    public static function invalidArgument(
-        string $class,
-        string $method,
-        string $arg,
-        \Exception $previous = null
-    ): self {
+    public static function invalidArgument(string $class, string $method, string $arg, \Exception $previous = null): self
+    {
         return new self(
             "invalid value of argument \"{$arg}\" in {$class}::{$method}",
             self::INVALID_ARGUMENT,

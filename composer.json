@@ -9,7 +9,7 @@
         {"name": "Chris Köcher", "email": "ckone@fieselschweif.de"}
     ],
     "require": {
-        "php": "~7.1",
+        "php": "^7.4",
         "ext-openssl": "*",
         "ext-mbstring": "*",
         "psr/log": "1.0.0"

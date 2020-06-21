@@ -35,14 +35,14 @@ class CsvLogger extends ALogger
      *
      * @var string
      */
-    private $_fileName;
+    private string $_fileName;
 
     /**
      * Constructor of this class.
      *
-     * @param \Gustav\Utils\Log\Configuration $configuration
+     * @param Configuration $configuration
      *   The configuration data
-     * @throws \Gustav\Utils\Log\LogException
+     * @throws LogException
      *   Invalid file name
      */
     public function __construct(Configuration $configuration)
@@ -60,7 +60,7 @@ class CsvLogger extends ALogger
     /**
      * @inheritdoc
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if(!\in_array($level, self::$_levels)) {
             throw new InvalidArgumentException("invalid log level {$level}");
@@ -70,16 +70,11 @@ class CsvLogger extends ALogger
             \str_replace('"', '""', $this->_interpolate($message, $context)) .
             "\"";
 
-        if(
-            isset($context['exception']) &&
-            $context['exception'] instanceof \Exception
-        ) {
+        if(isset($context['exception']) && $context['exception'] instanceof \Exception) {
             $addMessage .= "," . \get_class($context['exception']) . "," .
                 $context['exception']->getCode() . ",\"" .
-                \str_replace('"', '""', $context['exception']->getMessage()) .
-                "\",\"" .
-                \str_replace('"', '""', $context['exception']->getTraceAsString()) .
-                "\"";
+                \str_replace('"', '""', $context['exception']->getMessage()) . "\",\"" .
+                \str_replace('"', '""', $context['exception']->getTraceAsString()) . "\"";
         }
 
         $addMessage .= "\n";

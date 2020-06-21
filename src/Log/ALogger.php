@@ -34,9 +34,9 @@ abstract class ALogger extends AbstractLogger
     /**
      * This array caches all the possible logging levels.
      *
-     * @var array
+     * @var string[]
      */
-    protected static $_levels = [
+    protected static array $_levels = [
         LogLevel::ALERT,
         LogLevel::CRITICAL,
         LogLevel::DEBUG,
@@ -60,7 +60,7 @@ abstract class ALogger extends AbstractLogger
     protected function _interpolate(string $message, array $context = []): string
     {
         //build a replacement array with braces around the context keys
-        $replace = array();
+        $replace = [];
         foreach ($context as $key => $val) {
             if($key == "exception") {
                 continue;

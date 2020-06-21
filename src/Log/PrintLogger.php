@@ -33,7 +33,7 @@ class PrintLogger extends ALogger
     /**
      * @inheritdoc
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if(!\in_array($level, self::$_levels)) {
             throw new InvalidArgumentException("invalid log level {$level}");
@@ -42,10 +42,7 @@ class PrintLogger extends ALogger
         $addMessage = "<strong>" . \time() . " - {$level}</strong>: " .
             $this->_interpolate($message, $context) . "<br />";
         
-        if(
-            isset($context['exception']) &&
-            $context['exception'] instanceof \Exception
-        ) {
+        if(isset($context['exception']) && $context['exception'] instanceof \Exception) {
             $addMessage .= "<em>Exception</em>: " . \get_class($context['exception']) .
                 " (Code: {$context['exception']->getCode()}) " .
                 $context['exception']->getMessage() . "<br />" .

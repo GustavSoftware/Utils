@@ -35,7 +35,7 @@ class FileLogger extends ALogger
      *
      * @var string
      */
-    private $_fileName;
+    private string $_fileName;
 
     /**
      * Constructor of this class.
@@ -56,19 +56,15 @@ class FileLogger extends ALogger
     /**
      * @inheritdoc
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if(!\in_array($level, self::$_levels)) {
             throw new InvalidArgumentException("invalid log level {$level}");
         }
 
-        $addMessage = \time() . " - {$level}: " .
-            $this->_interpolate($message, $context) . "\n";
+        $addMessage = \time() . " - {$level}: " . $this->_interpolate($message, $context) . "\n";
 
-        if(
-            isset($context['exception']) &&
-            $context['exception'] instanceof \Exception
-        ) {
+        if(isset($context['exception']) && $context['exception'] instanceof \Exception) {
             $addMessage .= "\tException: " . \get_class($context['exception']) .
                 " (Code: {$context['exception']->getCode()}) " .
                 $context['exception']->getMessage() . "\n" .
